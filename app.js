@@ -1,6 +1,5 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -9,56 +8,14 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-const sequelize = require('./config/sequelize'); // Path to your sequelize configuration
 
-sequelize.sync().then(() => {
+const Sequelize = require('./config/sequelize');
+
+Sequelize.sync().then(() => {
   console.log("All models were synchronized successfully.");
 }).catch((error) => {
   console.error("Failed to synchronize models:", error);
 });
-
-
-// const { Connection } = require('tedious');
-
-// const config = {
-//   server: 'localhost',
-//   authentication: {
-//       type: 'default',
-//       options: {
-//           userName: 'AAA',
-//           password: 'aaa',
-//       },
-//   },
-//   options: {
-//       database: 'quantum',
-//       encrypt: false, // Use true if connecting to Azure SQL Database
-//       port: 1433 // Double-check if your SQL Server listens on a different port
-//   }
-// };
-
-// const connection = new Connection(config);
-
-// connection.on('connect', err => {
-//   if (err) {
-//     console.error('Connection failed', err);
-//   } else {
-//     console.log('Connected successfully');
-//   }
-// });
-
-// connection.connect();
-
-
-// sequelize.authenticate();
-
-console.log('-----------------')
-// User.create({ name: 'John', email: 'doe@mail.com' })
-//   .then(user => {
-//     console.log('User created:', user.toJSON());
-//   })
-//   .catch(error => {
-//     console.error('Error creating user:', error);
-//   });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
